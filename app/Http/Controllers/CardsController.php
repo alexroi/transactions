@@ -72,6 +72,12 @@ class CardsController extends Controller
     }
 
 
+    /**
+     * Show replenishment form
+     *
+     * @param UserCard $card
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function replenish(UserCard $card)
     {
         return view('cards.replenish', [
@@ -80,14 +86,29 @@ class CardsController extends Controller
     }
 
 
+    /**
+     * Store replenishment
+     *
+     * @param CardReplenishRequest $request
+     * @param UserCard $card
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function replenishStore(CardReplenishRequest $request, UserCard $card)
     {
         $card->changeBalance($request->input('amount'));
 
-        return redirect(route('site.cards.show', ['card' => $card]));
+        return redirect(route('site.cards.show', [
+            'card' => $card
+        ]));
     }
 
 
+    /**
+     * Show withdraw form
+     *
+     * @param UserCard $card
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function withdraw(UserCard $card)
     {
         return view('cards.withdraw', [
@@ -96,16 +117,31 @@ class CardsController extends Controller
     }
 
 
+    /**
+     * Store withdraw
+     *
+     * @param CardWithdrawRequest $request
+     * @param UserCard $card
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function withdrawStore(CardWithdrawRequest $request, UserCard $card)
     {
         $amount = -1 * abs($request->input('amount'));
 
         $card->changeBalance($amount);
 
-        return redirect(route('site.cards.show', ['card' => $card]));
+        return redirect(route('site.cards.show', [
+            'card' => $card
+        ]));
     }
 
 
+    /**
+     * Show transfer form
+     *
+     * @param UserCard $card
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function transfer(UserCard $card)
     {
         return view('cards.transfer', [
@@ -114,12 +150,21 @@ class CardsController extends Controller
     }
 
 
+    /**
+     * Store transfer
+     *
+     * @param CardTransferRequest $request
+     * @param UserCard $card
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function transferStore(CardTransferRequest $request, UserCard $card)
     {
         $transfer_card = UserCard::whereNumber($request->input('number'))->first();
 
         $transfer_card->changeBalance($request->input('amount'), $card);
 
-        return redirect(route('site.cards.show', ['card' => $card]));
+        return redirect(route('site.cards.show', [
+            'card' => $card
+        ]));
     }
 }

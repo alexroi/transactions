@@ -4,7 +4,7 @@
 
 @endphp
 @extends('layouts.app')
-
+@section('title', 'My cards')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

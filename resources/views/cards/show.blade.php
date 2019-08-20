@@ -5,7 +5,7 @@
 
 @endphp
 @extends('layouts.app')
-
+@section('title', 'Card info')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -14,9 +14,9 @@
                     <div class="card-header">
                         <a href="{{ route('site.cards') }}">&larr; Back to list</a>
                         <br/>
-                        Card - {{ $card->formatted_number }}
+                        Card: {{ $card->formatted_number }}
                         <br/>
-                        Balance - {{ $card->cash }}
+                        Balance: {{ $card->cash }}
                     </div>
                     <div class="card-header">
                         <a href="{{ route('site.cards.replenish', ['card' => $card]) }}">Replenish Cash</a>,

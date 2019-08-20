@@ -4,7 +4,7 @@
 
 @endphp
 @extends('layouts.app')
-
+@section('title', 'Transfer cash')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -13,9 +13,9 @@
                     <div class="card-header">
                         <a href="{{ route('site.cards.show', ['card' => $card]) }}">&larr; Back</a>
                         <br/>
-                        Withdraw cash from {{ $card->formatted_number }}
+                        Card: {{ $card->formatted_number }}
                         <br/>
-                        Balance - {{ $card->cash }}
+                        Balance: {{ $card->cash }}
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('site.cards.transfer.store', ['card' => $card]) }}">
